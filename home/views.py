@@ -1,6 +1,9 @@
 from django.shortcuts import render
-from product.models import Menu
-def home(request):
-    menu_items=Menu.objects.all()
-    return render(request,'home/home.html',{'menu_items':menu_items})
-
+import requests
+def homepage(request):
+    response=requests.get('http://127.0.1.8000'/api/menu/')
+    if response.status_code==200:
+        menu=response.json()
+    else:
+        menu=[]
+    return render(request,'home/homepage.html',{'menu':menu})
